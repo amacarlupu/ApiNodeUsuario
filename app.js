@@ -1,8 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const apiRouter=require('./routes/api_route');
+var cors = require('cors');
+
+
 
 const app = express();
+
+app.use(cors());
 
 // Puerto por defecto
 const port = process.env.PORT || 3000;
@@ -23,4 +28,4 @@ app.use('/api', apiRouter);
 // Comenzar servidor express
 app.listen(port, () => {
     console.log(`Servidor iniciando en el puerto ${ port }`);
-})
+});
