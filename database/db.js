@@ -2,9 +2,9 @@ const Sequelize = require('sequelize');
 const db = {};
 
 // Option 2: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('lazzar_prueba', 'root', '',
+const sequelize = new Sequelize('Gcxy135z7f', 'Gcxy135z7f', 'n7PElkWbSa',
   {
-    host: 'localhost',
+    host: 'remotemysql.com',
     dialect: 'mysql',
     logging: false
 
