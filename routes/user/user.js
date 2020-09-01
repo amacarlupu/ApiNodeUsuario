@@ -1,10 +1,11 @@
 const router = require('express').Router();
-const { Op } = require("sequelize");
+const { Op, InvalidConnectionError } = require("sequelize");
 const { sequelize } = require('../../database/db');
 
 
 // importa modelo
 const User = require('../../models/usuario');
+const { validator } = require('sequelize/types/lib/utils/validator-extras');
 
 // Obtener todos los registos
 router.get('/', async (req, res) => {
@@ -58,16 +59,20 @@ router.post('/login', async (req, res)=>{
 
         if(Object.entries(user).length === 0){
             res.json({
+                status:Invalid,
                 error:{
                     message:'Usuario o contraseña inválidos'
                 }
             });
         }
 
-        res.json(user);
+        res.json({
+            status:valid,
+            codigo:user.CDG_USR
+        });
     })
     .catch(err=>{
-        return err;
+        throw err;
     });
 
 });
