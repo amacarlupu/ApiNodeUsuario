@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Op, InvalidConnectionError } = require("sequelize");
+const { Op } = require("sequelize");
 const { sequelize } = require('../../database/db');
 
 
 // importa modelo
 const User = require('../../models/usuario');
-const { validator } = require('sequelize/types/lib/utils/validator-extras');
+// const { validator } = require('sequelize/types/lib/utils/validator-extras');
 
 // Obtener todos los registos
 router.get('/', async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 // Obtener registros por ID
 router.get('/profile/:id', async (req, res) => {
     const user = await User.findAll({
-        attributes: ['DES_USR', 'PSW_USR'],
+        // attributes: ['DES_USR', 'PSW_USR'],
             where: {
                 CDG_USR: {
                     [Op.eq]: req.params.id
@@ -38,7 +38,7 @@ router.get('/profile/:id', async (req, res) => {
             }
 
             res.json(user);
-            console.log(req.params);
+            // console.log(req.params);
 
         })
         .catch(err => {
@@ -59,20 +59,22 @@ router.post('/login', async (req, res)=>{
 
         if(Object.entries(user).length === 0){
             res.json({
-                status:Invalid,
+                // status:Invalid,
                 error:{
-                    message:'Usuario o contraseña inválidos'
+                    message:'Usuario o contraseña inválidos',
+                    status:'invalido'
                 }
             });
         }
 
         res.json({
-            status:valid,
-            codigo:user.CDG_USR
+            sucessfull:{
+                status:'valido'
+            }
         });
     })
     .catch(err=>{
-        throw err;
+        return err;
     });
 
 });
