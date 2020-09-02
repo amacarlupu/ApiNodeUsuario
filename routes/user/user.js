@@ -51,6 +51,7 @@ router.get('/profile/:id', async (req, res) => {
 // LogIn
 router.post('/login', async (req, res)=>{
     const user = await User.findAll({
+         attributes: ['CDG_USR'],
         where:{
             [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
         }
@@ -67,11 +68,8 @@ router.post('/login', async (req, res)=>{
             });
         }
 
-        res.json({
-            sucessfull:{
-                status:'valido'
-            }
-        });
+        res.json(user);
+        
     })
     .catch(err=>{
         return err;
