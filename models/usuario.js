@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../database/db');
 
+
 const usuario = sequelize.define('usuario',{
         CDG_USR:{
             type: DataTypes.CHAR(30),

@@ -1,11 +1,17 @@
 const router = require('express').Router();
 const { Op } = require("sequelize");
 const { sequelize } = require('../../database/db');
+const bcrypt = require('bcrypt');
+
+
+process.env.SECRET_KEY='$lazzar_secret$';
 
 
 // importa modelo
 const User = require('../../models/usuario');
 // const { validator } = require('sequelize/types/lib/utils/validator-extras');
+
+const PwdValidator = require('./userController');
 
 // Obtener todos los registos
 router.get('/', async (req, res) => {
@@ -51,7 +57,7 @@ router.get('/profile/:id', async (req, res) => {
 // LogIn
 router.post('/login', async (req, res)=>{
     const user = await User.findAll({
-         attributes: ['CDG_USR'],
+         attributes: ['CDG_USR','PSW_USR'],
         where:{
             [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
         }
@@ -68,7 +74,28 @@ router.post('/login', async (req, res)=>{
             });
         }
 
-        res.json(user);
+        // console.log(user[0].dataValues.PSW_USR);
+
+        PwdValidator(req.body.password, user[0].dataValues.PSW_USR);
+
+        // console.log(PwdValidator);
+
+        if(PwdValidator){
+            res.json({
+                id_user:user[0].dataValues.CDG_USR,
+                status:'valido'
+            });
+            // return console.log('valido');
+        }else{
+            res.json({
+                // status:Invalid,
+                error:{
+                    message:'contraseña inválida',
+                    status:'invalido'
+                }
+            });
+        }
+        
         
     })
     .catch(err=>{
