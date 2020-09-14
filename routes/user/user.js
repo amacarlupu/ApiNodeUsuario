@@ -57,10 +57,10 @@ router.get('/profile/:id', async (req, res) => {
 // LogIn
 router.post('/login', async (req, res)=>{
     const user = await User.findAll({
-         attributes: ['CDG_USR','PSW_USR'],
-        where:{
-            [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
-        }
+         attributes: ['CDG_USR','PSW_USR']
+        // where:{
+        //     [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
+        // }
     })
     .then(user=>{
 
