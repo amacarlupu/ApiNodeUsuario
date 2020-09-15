@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Rutas que comienzen con '/user' serán enviadas a apiRouter
-app.use('/api', apiRouter);
+app.use('/', apiRouter);
 
 // Comenzar servidor express
 app.listen(port, () => {

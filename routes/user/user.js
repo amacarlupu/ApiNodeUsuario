@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Op } = require("sequelize");
 const { sequelize } = require('../../database/db');
-const bcrypt = require('bcrypt');
 
 
 process.env.SECRET_KEY='$lazzar_secret$';
@@ -64,15 +63,15 @@ router.post('/login', async (req, res)=>{
     })
     .then(user=>{
 
-        if(Object.entries(user).length === 0){
-            res.json({
-                // status:Invalid,
-                error:{
-                    message:'Usuario o contraseña inválidos',
-                    status:'invalido'
-                }
-            });
-        }
+        // if(Object.entries(user).length === 0){
+        //     res.json({
+        //         // status:Invalid,
+        //         error:{
+        //             message:'Usuario o contraseña inválidos',
+        //             status:'invalido'
+        //         }
+        //     });
+        // }
 
         // console.log(user[0].dataValues.PSW_USR);
 
