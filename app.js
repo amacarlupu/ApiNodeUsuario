@@ -12,8 +12,6 @@ app.use(cors());
 // Puerto por defecto
 const port = process.env.PORT || 3000;
 
-// Database Connection
-require('./database/db');
 
 // MIDDLEWERES
 // parse application/json
@@ -24,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Rutas que comienzen con '/user' serán enviadas a apiRouter
 app.use('/', apiRouter);
+// app.use(app.router);
+// apiRouter.initialize(app);
+
 
 // Comenzar servidor express
 app.listen(port, () => {

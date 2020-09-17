@@ -1,9 +1,12 @@
-const router = require('express').Router();
+const { Router } = require('express')
+const router=Router();
 
-const apiUserRouter=require('./user/user');
+const routeUsuario=require('./user/user');
+const routeEmpresaValida=require('./empresa/empresa');
 
 // Enviar a user.js cuando tengan la direccion '/api/user'
-router.use('/user',apiUserRouter);
+router.use('/user',routeUsuario);
+router.use('/empresa',routeEmpresaValida);
 
 
 module.exports=router;

@@ -2,18 +2,17 @@ const router = require('express').Router();
 const { Op } = require("sequelize");
 const { sequelize } = require('../../database/db');
 
-
-process.env.SECRET_KEY='$lazzar_secret$';
-
+// Database Connection
+require('../../database/db');
 
 // importa modelo
 const User = require('../../models/usuario');
-// const { validator } = require('sequelize/types/lib/utils/validator-extras');
 
 const PwdValidator = require('./userController');
 
 // Obtener todos los registos
 router.get('/', async (req, res) => {
+    console.log(User);
     // Recuperar todos los  valores
     const user = await User.findAll();
     res.json(user);
@@ -53,27 +52,18 @@ router.get('/profile/:id', async (req, res) => {
 });
 
 
+
 // LogIn
 router.post('/login', async (req, res)=>{
-    const user = await User.findAll({
-         attributes: ['CDG_USR','PSW_USR']
-        // where:{
-        //     [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
-        // }
-    })
+    const user = await User.findAll(
+    //     {
+    //      attributes: ['CDG_USR','PSW_USR']
+    //     // where:{
+    //     //     [Op.and]:[{DES_USR:req.body.username},{PSW_USR:req.body.password}],
+    //     // }
+    // }
+    )
     .then(user=>{
-
-        // if(Object.entries(user).length === 0){
-        //     res.json({
-        //         // status:Invalid,
-        //         error:{
-        //             message:'Usuario o contraseña inválidos',
-        //             status:'invalido'
-        //         }
-        //     });
-        // }
-
-        // console.log(user[0].dataValues.PSW_USR);
 
         PwdValidator(req.body.password, user[0].dataValues.PSW_USR);
 
@@ -108,5 +98,8 @@ router.get('/logout', async (req, res)=>{
     sequelize.close();
     console.log('Sesion cerrada');
 });
+
+
+// router.post('/singin', async )
 
 module.exports = router;

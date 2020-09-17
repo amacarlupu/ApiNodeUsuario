@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const { databaseLazzar } = require('../database/db');
+const { databaseLazzar } = require('../../database/db');
 // const base =require('../database/db');
 
 // console.log('lazzar',base);
